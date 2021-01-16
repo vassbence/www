@@ -132,7 +132,7 @@ resource "aws_s3_bucket" "website_redirect" {
 
 resource "aws_cloudfront_distribution" "website_cdn_root" {
   enabled     = true
-  price_class = "PriceClass_200"
+  price_class = "PriceClass_All"
   aliases     = [local.website_domain]
 
   origin {
@@ -202,7 +202,7 @@ resource "aws_route53_record" "website_cdn_root_record" {
 
 resource "aws_cloudfront_distribution" "website_cdn_redirect" {
   enabled     = true
-  price_class = "PriceClass_200"
+  price_class = "PriceClass_All"
   aliases     = ["www.${local.website_domain}"]
 
   origin {
