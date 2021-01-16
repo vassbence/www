@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vass Bence</title>
+    <style>
+      @font-face {
+        font-family: "Inter";
+        font-weight: 100 900;
+        font-display: block;
+        src: url("/static/inter-20200914.woff2") format("woff2");
+      }
+
+      :root {
+        --gap: 1.5rem;
+        --bg: #ffffff;
+        --fg: #121212;
+      }
+
+      * {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 4rem 2rem;
+        font-size: 1.35rem;
+        font-weight: 500;
+        line-height: 2rem;
+        color: var(--fg);
+        background: var(--bg);
+      }
+
+      p {
+        margin-bottom: var(--gap);
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 2px;
+        vertical-align: middle;
+      }
+
+      .info {
+        margin-top: var(--gap);
+      }
+
+      a {
+        color: currentColor;
+        text-decoration: none;
+      }
+
+      aside a {
+        display: block;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      a:after {
+        content: " \2197";
+      }
+
+      main {
+        flex: 1;
+        max-width: 400px;
+      }
+
+      aside {
+        max-width: 270px;
+      }
+
+      @media (min-width: 768px) {
+        body {
+          display: flex;
+          justify-content: space-between;
+          font-size: 1.5rem;
+        }
+
+        aside {
+          margin-left: 5rem;
+        }
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #131415;
+          --fg: #fafbfc;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p>
+        Hey, I'm Vass Bence, a computer enthusiast specializing in web
+        development from Budapest, HU.
+      </p>
+      <p>
+        I'm studying computer engineering at BME and working at
+        <a href="https://thisisdone.com" target="_blank" rel="noopener"
+          >DONE.</a
+        >
+      </p>
+      <p>
+        In my spare time I enjoy contributing to open source and building stuff
+        for our classmates with the great people at
+        <a href="https://github.com/kir-dev" target="_blank" rel="noopener"
+          >Kir-Dev.</a
+        >
+      </p>
+      <p>
+        I'm active in the local developer community as well, last year I had the
+        opportunity to be a part of
+        <a
+          href="
+      https://twitter.com/cssconfbudapest/status/1179725150373191680
+      "
+          target="_blank"
+          rel="noopener"
+          >CSSConf Budapest's</a
+        >
+        awesome team.
+      </p>
+    </main>
+
+    <aside>
+      <picture>
+        <source srcset="/static/me-20200713.webp" type="image/webp" />
+        <img src="/static/me-20200519.jpg" alt="Me" height="510" width="510" />
+      </picture>
+      <div class="info">
+        <a href="mailto:mail@vassbence.com" target="_blank" rel="noopener"
+          >mail@vassbence.com</a
+        >
+        <a href="https://github.com/vassbence" target="_blank" rel="noopener"
+          >github.com/vassbence</a
+        >
+      </div>
+    </aside>
+  </body>
+</html>
