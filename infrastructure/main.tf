@@ -4,7 +4,20 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 3.0"
     }
+    checkly = {
+      source  = "checkly/checkly"
+      version = "0.8.0"
+    }
   }
+}
+
+
+variable "checkly_api_key" {
+  type = string
+}
+
+variable "checkly_alert_email" {
+  type = string
 }
 
 locals {
@@ -31,6 +44,10 @@ provider "aws" {
 provider "aws" {
   alias  = "us-east-1"
   region = "us-east-1"
+}
+
+provider "checkly" {
+  api_key = var.checkly_api_key
 }
 
 data "aws_route53_zone" "main" {
@@ -278,3 +295,110 @@ resource "aws_s3_bucket_object" "website_files" {
   content_type  = lookup(local.mime_types, split(".", each.value)[length(split(".", each.value)) - 1])
   cache_control = split("/", each.value)[0] == "static" ? local.static_folder_cache_control : null
 }
+
+resource "checkly_alert_channel" "email" {
+  email {
+    address = var.checkly_alert_email
+  }
+}
+
+resource "checkly_check" "root_domain_check" {
+  name                   = "root_domain_check"
+  type                   = "API"
+  activated              = true
+  should_fail            = false
+  frequency              = 30
+  double_check           = true
+  ssl_check              = true
+  degraded_response_time = 300
+  max_response_time      = 500
+
+  locations = [
+    "eu-central-1",
+    "us-east-1"
+  ]
+
+  alert_settings {
+    escalation_type = "RUN_BASED"
+
+    run_based_escalation {
+      failed_run_threshold = 2
+    }
+
+    ssl_certificates {
+      enabled         = true
+      alert_threshold = 30
+    }
+
+    reminders {
+      amount   = 5
+      interval = 30
+    }
+  }
+
+  alert_channel_subscription {
+    channel_id = checkly_alert_channel.email.id
+    activated  = true
+  }
+
+  request {
+    url              = "https://${local.website_domain}/"
+    follow_redirects = false
+    assertion {
+      source     = "STATUS_CODE"
+      comparison = "EQUALS"
+      target     = "200"
+    }
+  }
+}
+
+resource "checkly_check" "www_domain_check" {
+  name                   = "www_domain_check"
+  type                   = "API"
+  activated              = true
+  should_fail            = false
+  frequency              = 30
+  double_check           = true
+  ssl_check              = true
+  degraded_response_time = 300
+  max_response_time      = 500
+
+  locations = [
+    "eu-central-1",
+    "us-east-1"
+  ]
+
+  alert_settings {
+    escalation_type = "RUN_BASED"
+
+    run_based_escalation {
+      failed_run_threshold = 2
+    }
+
+    ssl_certificates {
+      enabled         = true
+      alert_threshold = 30
+    }
+
+    reminders {
+      amount   = 5
+      interval = 30
+    }
+  }
+
+  alert_channel_subscription {
+    channel_id = checkly_alert_channel.email.id
+    activated  = true
+  }
+
+  request {
+    url              = "https://www.${local.website_domain}/"
+    follow_redirects = true
+    assertion {
+      source     = "STATUS_CODE"
+      comparison = "EQUALS"
+      target     = "200"
+    }
+  }
+}
+
