@@ -310,15 +310,14 @@ resource "checkly_check" "root_domain_check" {
   frequency              = 30
   double_check           = true
   ssl_check              = true
-  degraded_response_time = 500
-  max_response_time      = 1000
+  degraded_response_time = 300
+  max_response_time      = 500
 
   locations = [
     "eu-central-1",
     "eu-west-2",
     "eu-south-1",
     "us-east-1",
-    "ap-southeast-2"
   ]
 
   alert_settings {
@@ -363,15 +362,14 @@ resource "checkly_check" "www_domain_check" {
   frequency              = 30
   double_check           = true
   ssl_check              = true
-  degraded_response_time = 500
-  max_response_time      = 1000
+  degraded_response_time = 300
+  max_response_time      = 500
 
   locations = [
     "eu-central-1",
     "eu-west-2",
     "eu-south-1",
     "us-east-1",
-    "ap-southeast-2"
   ]
 
   alert_settings {
