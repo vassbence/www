@@ -315,6 +315,7 @@ resource "checkly_check" "root_domain_check" {
 
   locations = [
     "eu-central-1",
+    "eu-north-1",
     "eu-west-2",
     "eu-south-1",
     "us-east-1",
@@ -367,6 +368,7 @@ resource "checkly_check" "www_domain_check" {
 
   locations = [
     "eu-central-1",
+    "eu-north-1",
     "eu-west-2",
     "eu-south-1",
     "us-east-1",
