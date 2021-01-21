@@ -307,7 +307,7 @@ resource "checkly_check" "root_domain_check" {
   type                   = "API"
   activated              = true
   should_fail            = false
-  frequency              = 30
+  frequency              = 15
   double_check           = true
   ssl_check              = true
   degraded_response_time = 300
@@ -359,7 +359,7 @@ resource "checkly_check" "www_domain_check" {
   type                   = "API"
   activated              = true
   should_fail            = false
-  frequency              = 30
+  frequency              = 15
   double_check           = true
   ssl_check              = true
   degraded_response_time = 300
