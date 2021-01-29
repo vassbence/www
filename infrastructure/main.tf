@@ -173,9 +173,6 @@ resource "aws_cloudfront_distribution" "website_cdn_root" {
     allowed_methods  = ["GET", "HEAD", "OPTIONS"]
     cached_methods   = ["GET", "HEAD", "OPTIONS"]
     target_origin_id = "origin-bucket-${aws_s3_bucket.website_root.id}"
-    min_ttl          = "0"
-    default_ttl      = "300"
-    max_ttl          = "1200"
 
     viewer_protocol_policy = "redirect-to-https"
     compress               = true
@@ -243,9 +240,6 @@ resource "aws_cloudfront_distribution" "website_cdn_redirect" {
     allowed_methods  = ["GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT", "DELETE"]
     cached_methods   = ["GET", "HEAD"]
     target_origin_id = "origin-bucket-${aws_s3_bucket.website_redirect.id}"
-    min_ttl          = "0"
-    default_ttl      = "300"
-    max_ttl          = "1200"
 
     viewer_protocol_policy = "redirect-to-https"
     compress               = true
