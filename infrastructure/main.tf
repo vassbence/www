@@ -33,6 +33,7 @@ locals {
     woff2 = "font/woff2"
     jpg   = "image/jpg"
     webp  = "image/webp"
+    pdf   = "application/pdf"
   }
 }
 
